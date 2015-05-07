@@ -19,7 +19,6 @@ import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
-
 import org.unidal.helper.Joiners;
 import org.unidal.helper.Splitters;
 import org.unidal.lookup.configuration.AbstractResourceConfigurator;
@@ -29,8 +28,7 @@ import org.unidal.maven.plugins.plexus.profile.entity.Property;
 import org.unidal.maven.plugins.plexus.profile.transform.DefaultDomParser;
 
 /**
- * Code generator for Plexus dependency injection
- * descriptor(/META_INF/plexus/components.xml).
+ * Generates file(/META_INF/plexus/components.xml) for Plexus component lookup.
  * 
  * @goal plexus
  * @phase process-classes
@@ -126,6 +124,7 @@ public class PlexusMojo extends AbstractMojo {
          }
       }
 
+      @SuppressWarnings("deprecation")
       Properties userProperties = m_project.getProjectBuildingRequest().getUserProperties();
 
       if (userProperties != null) {

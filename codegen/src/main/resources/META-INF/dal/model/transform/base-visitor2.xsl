@@ -51,7 +51,7 @@
 	 * @return parent object, null if not exists.
 	 */
 	@SuppressWarnings("unchecked")
-	protected <xsl:value-of select="'&lt;T&gt;'" disable-output-escaping="yes"/> T getAncestor(int backLevels) {
+	protected final <xsl:value-of select="'&lt;T&gt;'" disable-output-escaping="yes"/> T getAncestor(int backLevels) {
 		if (m_parents.isEmpty()) {
 			return null;
 		} else if (backLevels == 1) {
@@ -68,11 +68,11 @@
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <xsl:value-of select="'&lt;T&gt;'" disable-output-escaping="yes"/> T getParent() {
+	protected final <xsl:value-of select="'&lt;T&gt;'" disable-output-escaping="yes"/> T getParent() {
 		return (T) getAncestor(1);
 	}
 
-	protected Stack<xsl:value-of select="'&lt;Object&gt;'" disable-output-escaping="yes"/> getStack() {
+	protected final Stack<xsl:value-of select="'&lt;Object&gt;'" disable-output-escaping="yes"/> getStack() {
 		return m_parents;
 	}
 
@@ -90,23 +90,21 @@
       <xsl:variable name="entity" select="."/>
       <xsl:value-of select="$empty"/>   @Override<xsl:value-of select="$empty-line"/>
       <xsl:value-of select="$empty"/>   public final void <xsl:value-of select="@visit-method"/>(<xsl:value-of select="@entity-class"/><xsl:value-of select="$space"/><xsl:value-of select="@param-name"/>) {<xsl:value-of select="$empty-line"/>
-      <xsl:if test="entity-ref[not(@render='false')]">
-	      <xsl:value-of select="$empty"/>      m_parents.push(<xsl:value-of select="@param-name"/>);<xsl:value-of select="$empty-line"/>
-	      <xsl:value-of select="$empty"/><xsl:value-of select="'      '"/><xsl:value-of select="@visit-method"/>Children(<xsl:value-of select="@param-name"/>);<xsl:value-of select="$empty-line"/>
-	      <xsl:value-of select="$empty"/>      m_parents.pop();<xsl:value-of select="$empty-line"/>
-      </xsl:if>
+      <xsl:value-of select="$empty"/>      m_parents.push(<xsl:value-of select="@param-name"/>);<xsl:value-of select="$empty-line"/>
+      <xsl:value-of select="$empty"/><xsl:value-of select="'      '"/><xsl:value-of select="@visit-method"/>Children(<xsl:value-of select="@param-name"/>);<xsl:value-of select="$empty-line"/>
+      <xsl:value-of select="$empty"/>      m_parents.pop();<xsl:value-of select="$empty-line"/>
       <xsl:value-of select="$empty"/>   }<xsl:value-of select="$empty-line"/>
       <xsl:value-of select="$empty-line"/>
       <xsl:value-of select="$empty"/>   protected void <xsl:value-of select="@visit-method"/>Children(<xsl:value-of select="@entity-class"/><xsl:value-of select="$space"/><xsl:value-of select="@param-name"/>) {<xsl:value-of select="$empty-line"/>
-      <xsl:if test="entity-ref[not(@render='false')]">
+      <xsl:if test="entity-ref">
 	      <xsl:choose>
 	         <xsl:when test="@all-children-in-sequence='true'">
 	            <xsl:value-of select="$empty"/>      for (BaseEntity<xsl:value-of select="'&lt;?&gt;'" disable-output-escaping="yes"/> child : <xsl:value-of select="@param-name"/>.<xsl:value-of select="@method-get-all-children-in-sequence"/>()) {<xsl:value-of select="$empty-line"/>
 	            <xsl:value-of select="$empty"/>         child.accept(this);<xsl:value-of select="$empty-line"/>
 	            <xsl:value-of select="$empty"/>      }<xsl:value-of select="$empty-line"/>
 	         </xsl:when>
-	         <xsl:when test="entity-ref[not(@render='false')]">
-	            <xsl:for-each select="entity-ref[not(@render='false')]">
+	         <xsl:when test="entity-ref">
+	            <xsl:for-each select="entity-ref">
 	               <xsl:variable name="name" select="@name"/>
 	               <xsl:variable name="current" select="//entity[@name=$name]"/>
 	               <xsl:choose>
