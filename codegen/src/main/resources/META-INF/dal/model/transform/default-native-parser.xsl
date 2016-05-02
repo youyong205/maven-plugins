@@ -151,6 +151,11 @@
                <xsl:value-of select="$empty"/>            <xsl:value-of select="$indent"/><xsl:value-of select="$entity/@param-name"/>.<xsl:value-of select="@set-method"/>(read<xsl:call-template name="get-type-name"/>());<xsl:value-of select="$empty-line"/>
                <xsl:value-of select="$empty"/>            break;<xsl:value-of select="$empty-line"/>
             </xsl:when>
+            <xsl:when test="@enum='true'">
+               <xsl:value-of select="$empty"/>         case <xsl:value-of select="$index"/>:<xsl:value-of select="$empty-line"/>
+               <xsl:value-of select="$empty"/>            <xsl:value-of select="$indent"/><xsl:value-of select="$entity/@param-name"/>.<xsl:value-of select="@set-method"/>(<xsl:call-template name="get-type-name"/>.valueOf(readString()));<xsl:value-of select="$empty-line"/>
+               <xsl:value-of select="$empty"/>            break;<xsl:value-of select="$empty-line"/>
+            </xsl:when>
             <xsl:when test="name()='element' and (@list='true' or @set='true')">
                <xsl:value-of select="$empty"/>         case <xsl:value-of select="$index"/>:<xsl:value-of select="$empty-line"/>
                <xsl:value-of select="$empty"/>            if (_type == 1) {<xsl:value-of select="$empty-line"/>
@@ -286,7 +291,7 @@
 <xsl:if test="$properties[@value-type='double' or @value-type='Double']">
    private double readDouble() {
       try {
-         return m_in.readDouble();
+         return Double.longBitsToDouble(readVarint(64));
       } catch (IOException e) {
          throw new RuntimeException(e);
       }
