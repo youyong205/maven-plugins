@@ -12,9 +12,6 @@
    <packaging>maven-plugin</packaging>
    <name>Plexus Maven Plugin</name>
    <version>2.4.0</version>
-   <prerequisites>
-      <maven>3.2.3</maven>
-   </prerequisites>
    <dependencies>
       <dependency>
          <groupId>org.unidal.maven.plugins</groupId>
